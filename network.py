@@ -1,10 +1,12 @@
 
 from node import Node
+from network_interface import NetworkInterface
 
 class Network:
     def __init__(self):
         self.nodes = []
         self.edges = []
+        self.total_messages = 0
 
     def connect(self, nodeA, nodeB):
         self.edges.append((nodeA, nodeB))
@@ -13,7 +15,8 @@ class Network:
         nodeB.advertise(nodeA)
 
     def create_new_node(self):
-        node = Node(len(self.nodes))
+        network_interface = NetworkInterface(self)
+        node = Node(len(self.nodes), network_interface)
         self.nodes.append(node)
         return node
 

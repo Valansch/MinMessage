@@ -29,6 +29,6 @@ def test_network_not_connected():
 
 def test_connect_loose_ends():
     network = network_factory.create_random_network(random_speed, network_size, edge_factor)
-    network_factory.connect_loose_ends_recursive(network, network.nodes)
+    network_factory.connect_loose_ends(network, network.nodes)
 
     assert network_connected(network)
