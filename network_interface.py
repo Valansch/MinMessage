@@ -6,4 +6,4 @@ class NetworkInterface:
     def send(self, sender, target, message):
         if sender.has_neighbor(target):
             self.network.total_messages += 1
-            target.receive(sender, message)
+            target.receive(message)

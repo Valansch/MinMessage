@@ -1,6 +1,8 @@
 
 from network import Network
 import network_factory
+from path import Path
+from traversable_path import TraversablePath
 
 from network_interface import NetworkInterface
 from message import Message
@@ -24,24 +26,30 @@ def test_send_one_message():
     nodeB = simple_network.create_new_node()
     simple_network.connect(nodeA, nodeB)
 
-    message = Message([], "Content")
-    nodeA.send_message(nodeB, message)
+    path = Path()
+    path.append(nodeB)
+
+    message = Message(TraversablePath(path), "Content")
+    nodeA.send_message(message)
 
     assert simple_network.total_messages == 1 and nodeB.messages[0].body =="Content"
 
 def test_send_transitive_message():
     simple_network = Network()
-    node0 = simple_network.create_new_node()
-    node1 = simple_network.create_new_node()
-    node2 = simple_network.create_new_node()
-    simple_network.connect(node0, node1)
-    simple_network.connect(node0, node2)
+    nodeA = simple_network.create_new_node()
+    nodeB = simple_network.create_new_node()
+    nodeC = simple_network.create_new_node()
+    simple_network.connect(nodeA, nodeB)
+    simple_network.connect(nodeB, nodeC)
 
-    message = Message([], "Content")
-    #nodeA.send_message(nodeC, message)
-    
-    network = network_factory.create_random_network(random_speed, network_size, edge_factor)
-    network_factory.connect_loose_ends(network, network.nodes)
-    path_finder.remove_subpaths(path_finder.find_all_paths(network, network.nodes[0]), network_size)
-    
-    assert simple_network.total_messages == 1 and nodeB.messages[0].body =="Content"
+    path = Path()
+    path.append(nodeB)
+    path.append(nodeC)
+
+    message = Message(TraversablePath(path), "Content")
+    nodeA.send_message(message)
+
+    assert simple_network.total_messages == 2 
+    assert nodeB.messages[0].body =="Content"
+    assert nodeC.messages[0].body =="Content"
+

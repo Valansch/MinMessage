@@ -8,7 +8,7 @@ class Node:
     def has_neighbor(self, node):
         return node in self.neighbors
 
-    def __str__(self):
+    def __repr__(self):
         return str(self.id)
 
     def print(self):
@@ -23,11 +23,18 @@ class Node:
         self.network_interface = network_interface
         self.messages = []
         
-    def send_message(self, target, message):
-        self.network_interface.send(self, target, message)
+    def send_message(self, message):
+        path = message.header
+        next_hop = path.pop()
+        if self.has_neighbor(next_hop):
+            self.network_interface.send(self, next_hop, message)
+        else:
+            print(f"Warning: {str(self)} tried sending a message to a node not its neighbor: {next_hop}") #TODO implement logging
 
-    def receive(self, source, message):
+    def receive(self, message):
         self.messages.append(message)
+        if len(message.header) > 0:
+            self.send_message(message)
 
     def invoke_broadcast(self):
         pass
