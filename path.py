@@ -1,7 +1,11 @@
-class Path:
-    def __init__(self, nodeA, nodeB):
-        self.edges = []
+class Path(list):
+    def __init__(self):
+        super()
     
-    def append(self, nodeA, nodeB):
-        last_node = self.edges[len(self.edges) - 1]
-        if 
+    def __repr__(self):
+        result = "["
+        length = len(self)
+        for index, entry in enumerate(self, start=0):
+            result += f"{str(entry)}, " if (index != length - 1) else str(entry)
+        return f"{result}]"
+        
