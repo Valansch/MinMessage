@@ -4,5 +4,4 @@ class NetworkInterface:
 
     def send(self, sender, target, message):
         if sender.has_neighbor(target):
-            self.network.total_messages += 1
-            target.receive(message)
+            self.network.global_message_buffer.append((target, message))

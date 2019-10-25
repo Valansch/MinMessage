@@ -56,4 +56,9 @@ class Node:
         if self.minimal_spanning_tree is None:
             self.minimal_spanning_tree = extract_minimal_spanning_tree(self)
         message = Message(self.minimal_spanning_tree, content)
-        self.receive(message)
+        self.receive(message) # Call receive to drop "message zero" into the root nodes in port
+
+        network = self.network_interface.network
+        # Simulate network activity
+        while len(network.global_message_buffer) > 0:
+            network.network_tick()
