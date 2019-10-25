@@ -90,8 +90,6 @@ def test_split_and_join_message():
 
 def test_minimal_number_messages():
     network = network_factory.create_random_network(network_size, edge_factor, random_seed)
-    network_factory.connect_loose_ends(network, network.nodes)
-
     network.nodes[0].invoke_broadcast("Content")
 
     assert network.total_messages == network_size - 1

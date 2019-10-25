@@ -23,13 +23,9 @@ def network_connected(network):
     return network_size == len(visisted)
 
 
-def test_network_not_connected():
+def test_network_connected():
     network = network_factory.create_random_network(network_size, edge_factor, random_seed)
-    assert not network_connected(network)
-
-
-def test_connect_loose_ends():
-    network = network_factory.create_random_network(network_size, edge_factor, random_seed)
-    network_factory.connect_loose_ends(network, network.nodes)
 
     assert network_connected(network)
+
+
