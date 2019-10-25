@@ -4,15 +4,6 @@ from network import Network
 random_speed = 624352
 network_size = 100
 edge_factor = 2
-network = None
-
-
-def setup_module():
-    global network
-    network = network_factory.create_random_network(
-        random_speed, network_size, edge_factor
-    )
-    network_factory.connect_loose_ends(network, network.nodes)
 
 
 def test_send_one_message():
@@ -105,3 +96,19 @@ def test_split_and_join_message():
     assert node1.messages[0].body == "Content"
     assert node2.messages[0].body == "Content"
     assert node3.messages[0].body == "Content"
+
+
+def test_minimal_number_messages():
+    network = network_factory.create_random_network(
+        random_speed, network_size, edge_factor
+    )
+    network_factory.connect_loose_ends(network, network.nodes)
+
+    network.inject_network_interfaces()
+
+    network.nodes[0].invoke_broadcast("Content")
+
+    assert network.total_messages == network_size - 1
+    for node in network.nodes:
+        if node.id > 0:
+            assert len(node.messages) == 1 and node.messages[0].body == "Content"
