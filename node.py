@@ -20,6 +20,11 @@ class Node:
         self.id = id
         self.network_interface = network_interface
         self.messages = []
+
+    def __lt__(self, other):
+        return self.id < other.id
+    def __gt__(self, other):
+        return self.id > other.id
         
     def send_message(self, message):
         path = message.header

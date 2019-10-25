@@ -2,7 +2,7 @@ from network import Network
 import path_finder
 from path import Path
 import pytest
-            
+
 def test_transitive_path():
     network = Network()
     node0 = network.create_new_node()
@@ -100,3 +100,43 @@ def test_find_all_paths():
     should_paths.add(path_to_2)
     should_paths.add(path_to_3)
     assert set(is_paths) == should_paths
+
+def test_path_comparison():
+    network = Network()
+    node0 = network.create_new_node()
+    node1 = network.create_new_node()
+
+    pathA = Path()
+    pathB = Path()
+    pathA.append(node0)
+    pathA.append(node1)
+    pathB.append(node1)
+    pathB.append(node0)
+    
+    assert pathA < pathB
+
+def test_path_sorting():
+    network = Network()
+    node0 = network.create_new_node()
+    node1 = network.create_new_node()
+    node2 = network.create_new_node()
+    node3 = network.create_new_node()
+    node4 = network.create_new_node()
+
+    pathA = Path()
+    pathB = Path()
+    pathC = Path()
+    pathA.append(node0)
+    pathA.append(node1)
+    pathB.append(node0)
+    pathB.append(node2)
+    pathB.append(node3)
+    pathC.append(node0)
+    pathC.append(node2)
+    pathC.append(node4)
+
+    paths_is = [pathC, pathB, pathA]
+    paths_should = [pathA, pathB, pathC]
+
+    paths_is.sort()
+    assert paths_is == paths_should

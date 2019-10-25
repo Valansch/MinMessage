@@ -47,3 +47,7 @@ def print_path(paths):
         if path is None: continue
         for node in path:
             print(node.id, end=",")
+
+
+
+
