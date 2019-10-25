@@ -73,10 +73,6 @@ def test_split_and_join_tree():
     child_0_children = msp.children[0].children
     child_1_children = msp.children[1].children
     # Either node1 or node2 has child node3
-    assert (
-        (
-            len(child_0_children) == 1 and child_0_children[0].data == node3
-        ) or (
-            len(child_1_children) == 1 and child_1_children[0].data == node3
-        )
+    assert (len(child_0_children) == 1 and child_0_children[0].data == node3) or (
+        len(child_1_children) == 1 and child_1_children[0].data == node3
     )

@@ -1,6 +1,6 @@
 from message import Message
-
 from minimal_spanning_tree_builder import extract_minimal_spanning_tree
+
 
 class Node:
     def advertise(self, node):
@@ -33,7 +33,8 @@ class Node:
         return self.id > other.id
 
     def __hash__(self):
-        # ID is unique for nodes created by network.create_node ==> __hash__ is collision free and faster than calling super().hash()
+        # ID is unique for nodes created by network.create_node
+        # ==> __hash__ is collision free and faster than calling super().hash()
         return self.id
 
     def send_message(self, message):
@@ -42,7 +43,7 @@ class Node:
         if self.has_neighbor(next_hop):
             self.network_interface.send(self, next_hop, message)
         else:
-            print(f"Warning: {str(self)} tried sending a message to a node not its neighbor: {next_hop}") #TODO implement logging
+            print(f"Warning: {str(self)} tried sending a message to a node not its neighbor: {next_hop}")
 
     def receive(self, message):
         self.messages.append(message.body)

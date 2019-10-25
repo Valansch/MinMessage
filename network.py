@@ -29,7 +29,7 @@ class Network:
             node.print()
 
     def network_tick(self):
-        try: 
+        try:
             target, message = self.global_message_buffer.pop()
             self.total_messages += 1
             target.receive(message)

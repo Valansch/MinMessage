@@ -24,8 +24,8 @@ def network_connected(network):
 
 
 def test_network_connected():
-    network = network_factory.create_random_network(network_size, edge_factor, random_seed)
+    network = network_factory.create_random_network(
+        network_size, edge_factor, random_seed
+    )
 
     assert network_connected(network)
-
-
