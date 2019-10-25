@@ -1,5 +1,6 @@
-from network import Network
 import random
+
+from network import Network
 
 
 def create_random_network(seed, network_size, edge_factor):
@@ -23,14 +24,14 @@ def connect_loose_ends(network, nodes):
     while len(stack) > 0:
         node = stack.pop()
         if node in visisted:
-            continue #Loop detected
+            continue  # Loop detected
         stack += node.neighbors
         visisted.append(node)
     complement = [node for node in nodes if node not in visisted]
 
     if len(complement) > 0:
         # This returns is always a connected graph, therefore connecting a connected graph creates another connected graph
-        connect_loose_ends(network, complement) 
+        connect_loose_ends(network, complement)
 
         random_index = random.randint(1, (len(visisted))) - 1
         network.connect(complement[0], visisted[random_index])

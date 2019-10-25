@@ -1,5 +1,6 @@
-from network import Network
 from minimal_spanning_tree_builder import build_minimal_spanning_tree
+from network import Network
+
 
 def test_minimal_tree():
     network = Network()
@@ -16,11 +17,11 @@ def test_single_edge():
     node1 = network.create_new_node()
 
     network.connect(node0, node1)
-    
 
     msp = build_minimal_spanning_tree(network, node0)
 
     assert len(msp) == 2 and len(msp.children) == 1 and msp.children[0].data == node1
+
 
 def test_transitive_tree():
     network = Network()
@@ -35,6 +36,7 @@ def test_transitive_tree():
 
     assert len(msp) == 3 and msp.children[0].children[0].data == node2
 
+
 def test_split_tree():
     network = Network()
     node0 = network.create_new_node()
@@ -46,7 +48,12 @@ def test_split_tree():
 
     msp = build_minimal_spanning_tree(network, node0)
 
-    assert len(msp) == 3 and len(msp.children) == 2 and msp.children[0].data == node1 and msp.children[1].data == node2
+    assert (
+        len(msp) == 3
+        and len(msp.children) == 2
+        and msp.children[0].data == node1
+        and msp.children[1].data == node2
+    )
 
 
 def test_split_and_join_tree():
@@ -65,5 +72,11 @@ def test_split_and_join_tree():
 
     child_0_children = msp.children[0].children
     child_1_children = msp.children[1].children
-    #Either node1 or node2 has child node3
-    assert (len(child_0_children) == 1 and child_0_children[0].data == node3) or(len(child_1_children) == 1 and child_1_children[0].data == node3)
+    # Either node1 or node2 has child node3
+    assert (
+        (
+            len(child_0_children) == 1 and child_0_children[0].data == node3
+        ) or (
+            len(child_1_children) == 1 and child_1_children[0].data == node3
+        )
+    )

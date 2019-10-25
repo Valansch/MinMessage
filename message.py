@@ -1,5 +1,6 @@
 import copy
 
+
 class Message:
     def __init__(self, path_tree, body):
         self.header = dict()

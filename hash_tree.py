@@ -1,5 +1,5 @@
-class HashTree():
-    def __init__(self, data, parent = None):
+class HashTree:
+    def __init__(self, data, parent=None):
         self.parent = parent
         self.children = []
         self.data = data
@@ -7,7 +7,8 @@ class HashTree():
         self.entries.add(self)
 
     def contains(self, data):
-        return HashTree(data) in self.entries # avg O(1) because entries is collision free for type Node
+        # avg O(1) because entries is collision free for type Node
+        return HashTree(data) in self.entries
 
     def add(self, data):
         child = HashTree(data, self)
@@ -20,7 +21,6 @@ class HashTree():
         if self.parent is not None:
             self.parent.add_descendant(tree)
 
-
     def __eq__(self, other):
         return self.data.id == other.data.id
 
@@ -29,4 +29,3 @@ class HashTree():
 
     def __len__(self):
         return len(self.entries)
-

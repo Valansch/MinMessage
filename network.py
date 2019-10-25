@@ -1,7 +1,7 @@
-
-from node import Node
-from network_interface import NetworkInterface
 from minimal_spanning_tree_builder import build_minimal_spanning_tree
+from network_interface import NetworkInterface
+from node import Node
+
 
 class Network:
     def __init__(self):

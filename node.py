@@ -1,5 +1,6 @@
 from message import Message
 
+
 class Node:
     def advertise(self, node):
         if node not in self.neighbors:
@@ -12,9 +13,9 @@ class Node:
         return str(self.id)
 
     def print(self):
-        print(f'Node{self.id}: ', end='')
+        print(f"Node{self.id}: ", end="")
         for node in self.neighbors:
-            print(f'{str(node)}, ', end='')
+            print(f"{str(node)}, ", end="")
         print()
 
     def __init__(self, id):
@@ -25,12 +26,14 @@ class Node:
 
     def __lt__(self, other):
         return self.id < other.id
+
     def __gt__(self, other):
         return self.id > other.id
-        
+
     def __hash__(self):
-        return self.id # ID is unique for nodes created by network.create_node ==> __hash__ is collision free and faster than calling super().hash()
-        
+        # ID is unique for nodes created by network.create_node ==> __hash__ is collision free and faster than calling super().hash()
+        return self.id
+
     def send_message(self, message):
         path_tree = message.header["path_tree"]
         next_hop = path_tree.data
@@ -51,6 +54,3 @@ class Node:
         minimal_spanning_tree = self.network_interface.minimal_spanning_tree
         message = Message(minimal_spanning_tree, content)
         self.receive(message)
-        
-
-
