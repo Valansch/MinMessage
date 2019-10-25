@@ -13,8 +13,6 @@ def test_send_one_message():
 
     network.connect(node0, node1)
 
-    network.inject_network_interfaces()
-
     node0.invoke_broadcast("Content")
 
     assert network.total_messages == 1 and node1.messages[0].body == "Content"
@@ -28,8 +26,6 @@ def test_send_transitive_message():
 
     network.connect(node0, node1)
     network.connect(node1, node2)
-
-    network.inject_network_interfaces()
 
     node0.invoke_broadcast("Content")
 
@@ -46,8 +42,6 @@ def test_split_message():
 
     network.connect(node0, node1)
     network.connect(node0, node2)
-
-    network.inject_network_interfaces()
 
     node0.invoke_broadcast("Content")
 
@@ -66,8 +60,6 @@ def test_transitive_and_split_message():
     network.connect(node0, node1)
     network.connect(node1, node2)
     network.connect(node1, node3)
-
-    network.inject_network_interfaces()
 
     node0.invoke_broadcast("Content")
 
@@ -88,8 +80,6 @@ def test_split_and_join_message():
     network.connect(node1, node2)
     network.connect(node1, node3)
 
-    network.inject_network_interfaces()
-
     node0.invoke_broadcast("Content")
 
     assert network.total_messages == 3
@@ -101,8 +91,6 @@ def test_split_and_join_message():
 def test_minimal_number_messages():
     network = network_factory.create_random_network(network_size, edge_factor, random_seed)
     network_factory.connect_loose_ends(network, network.nodes)
-
-    network.inject_network_interfaces()
 
     network.nodes[0].invoke_broadcast("Content")
 

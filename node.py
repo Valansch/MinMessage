@@ -1,5 +1,6 @@
 from message import Message
 
+from minimal_spanning_tree_builder import build_minimal_spanning_tree
 
 class Node:
     def advertise(self, node):
@@ -18,10 +19,11 @@ class Node:
             print(f"{str(node)}, ", end="")
         print()
 
-    def __init__(self, id):
+    def __init__(self, id, network_interface):
         self.neighbors = []
         self.id = id
-        self.network_interface = None
+        self.network_interface = network_interface
+        self.minimal_spanning_tree = None
         self.messages = []
 
     def __lt__(self, other):
@@ -51,6 +53,7 @@ class Node:
             self.send_message(new_message)
 
     def invoke_broadcast(self, content):
-        minimal_spanning_tree = self.network_interface.minimal_spanning_tree
-        message = Message(minimal_spanning_tree, content)
+        if self.minimal_spanning_tree is None:
+            self.minimal_spanning_tree = build_minimal_spanning_tree(self)
+        message = Message(self.minimal_spanning_tree, content)
         self.receive(message)
