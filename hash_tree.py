@@ -17,9 +17,10 @@ class HashTree:
         return child
 
     def add_descendant(self, tree):
-        self.entries.add(tree)
-        if self.parent is not None:
-            self.parent.add_descendant(tree)
+        parent = self
+        while parent is not None:
+            parent.entries.add(tree)
+            parent = parent.parent
 
     def __eq__(self, other):
         return self.data.id == other.data.id

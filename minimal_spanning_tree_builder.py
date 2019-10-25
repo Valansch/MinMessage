@@ -1,6 +1,5 @@
 from hash_tree import HashTree
 
-
 def build_minimal_spanning_tree(root):
     tree = HashTree(root)
     subtrees = []
