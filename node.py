@@ -26,6 +26,9 @@ class Node:
     def __gt__(self, other):
         return self.id > other.id
         
+    def __hash__(self):
+        return self.id # ID is unique for nodes created by network.create_node ==> __hash__ is collision free and faster than calling super().hash()
+        
     def send_message(self, message):
         path = message.header
         next_hop = path.pop()
