@@ -1,6 +1,6 @@
 from message import Message
 
-from minimal_spanning_tree_builder import build_minimal_spanning_tree
+from minimal_spanning_tree_builder import extract_minimal_spanning_tree
 
 class Node:
     def advertise(self, node):
@@ -54,6 +54,6 @@ class Node:
 
     def invoke_broadcast(self, content):
         if self.minimal_spanning_tree is None:
-            self.minimal_spanning_tree = build_minimal_spanning_tree(self)
+            self.minimal_spanning_tree = extract_minimal_spanning_tree(self)
         message = Message(self.minimal_spanning_tree, content)
         self.receive(message)
