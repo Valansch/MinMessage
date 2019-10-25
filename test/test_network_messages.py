@@ -1,7 +1,7 @@
 import network_factory
 from network import Network
 
-random_speed = 624352
+random_seed = 624352
 network_size = 100
 edge_factor = 2
 
@@ -99,9 +99,7 @@ def test_split_and_join_message():
 
 
 def test_minimal_number_messages():
-    network = network_factory.create_random_network(
-        random_speed, network_size, edge_factor
-    )
+    network = network_factory.create_random_network(network_size, edge_factor, random_seed)
     network_factory.connect_loose_ends(network, network.nodes)
 
     network.inject_network_interfaces()

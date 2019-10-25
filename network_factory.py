@@ -3,8 +3,9 @@ import random
 from network import Network
 
 
-def create_random_network(seed, network_size, edge_factor):
-    random.seed(seed)
+def create_random_network(network_size, edge_factor, seed = None):
+    if seed is not None:
+        random.seed(seed)
     network = Network()
     for _ in range(network_size):
         network.create_new_node()
