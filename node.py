@@ -1,3 +1,5 @@
+from message import Message
+
 class Node:
     def advertise(self, node):
         if node not in self.neighbors:
@@ -15,10 +17,10 @@ class Node:
             print(f'{str(node)}, ', end='')
         print()
 
-    def __init__(self, id, network_interface):
+    def __init__(self, id):
         self.neighbors = []
         self.id = id
-        self.network_interface = network_interface
+        self.network_interface = None
         self.messages = []
 
     def __lt__(self, other):
@@ -30,8 +32,8 @@ class Node:
         return self.id # ID is unique for nodes created by network.create_node ==> __hash__ is collision free and faster than calling super().hash()
         
     def send_message(self, message):
-        path = message.header
-        next_hop = path.pop()
+        path_tree = message.header["path_tree"]
+        next_hop = path_tree.data
         if self.has_neighbor(next_hop):
             self.network_interface.send(self, next_hop, message)
         else:
@@ -39,11 +41,16 @@ class Node:
 
     def receive(self, message):
         self.messages.append(message)
-        if len(message.header) > 0:
-            self.send_message(message)
+        path_tree = message.header["path_tree"]
+        for child_tree in path_tree.children:
+            new_message = message.clone()
+            new_message.header["path_tree"] = child_tree
+            self.send_message(new_message)
 
-    def invoke_broadcast(self):
-        pass
-      #  path = path_finder.find_all_paths(self)
-       # print(path_finder.print_path(path))
+    def invoke_broadcast(self, content):
+        minimal_spanning_tree = self.network_interface.minimal_spanning_tree
+        message = Message(minimal_spanning_tree, content)
+        self.receive(message)
+        
+
 
