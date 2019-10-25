@@ -22,7 +22,7 @@ class Network:
 
     def inject_network_interfaces(self):
         for node in self.nodes:
-            msp = build_minimal_spanning_tree(self, node)
+            msp = build_minimal_spanning_tree(node)
             network_interface = NetworkInterface(self, msp)
             node.network_interface = network_interface
 
