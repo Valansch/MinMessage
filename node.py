@@ -1,5 +1,3 @@
-import path_finder
-
 class Node:
     def advertise(self, node):
         if node not in self.neighbors:

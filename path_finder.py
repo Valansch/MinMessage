@@ -1,31 +1,29 @@
 import copy
+from path import Path
+from traversable_path import Path
 
-def find_path(node, destination, inpath):
-    path = None
-    if inpath is None:
-        path = []
-    else:
-        path = copy.copy(inpath)
-
+def find_path(node, destination, path):
     path.append(node)
     if node == destination:
         return path
-
-    unseen_neighbors = [neighbor for neighbor in node.neighbors if neighbor not in path]
-    if len(unseen_neighbors) == 0:
-        return None # No path found
-    for neighbor in unseen_neighbors:
-        new_path = find_path(neighbor, destination, path)
-        if new_path is not None:
-            return new_path
-    return None
-
+    else:
+        for neighbor in node.neighbors:
+            if neighbor in path:
+                continue
+            pass
+            try:
+                path = find_path(neighbor, destination, copy.copy(path))
+            except LookupError:
+                continue # node not found in this subpath
+            return path
+    raise LookupError("Destination unreachable.")
+                 
 
 def find_all_paths(network, node):
     paths = []
     for destination in network.nodes:
         if destination != node:
-            paths.append(find_path(node, destination, []))
+            paths.append(find_path(node, destination, Path()))
     return paths
 
 
