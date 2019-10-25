@@ -15,7 +15,7 @@ def test_send_one_message():
 
     node0.invoke_broadcast("Content")
 
-    assert network.total_messages == 1 and node1.messages[0].body == "Content"
+    assert network.total_messages == 1 and node1.messages[0] == "Content"
 
 
 def test_send_transitive_message():
@@ -30,8 +30,8 @@ def test_send_transitive_message():
     node0.invoke_broadcast("Content")
 
     assert network.total_messages == 2
-    assert node1.messages[0].body == "Content"
-    assert node2.messages[0].body == "Content"
+    assert node1.messages[0] == "Content"
+    assert node2.messages[0] == "Content"
 
 
 def test_split_message():
@@ -46,8 +46,8 @@ def test_split_message():
     node0.invoke_broadcast("Content")
 
     assert network.total_messages == 2
-    assert node1.messages[0].body == "Content"
-    assert node2.messages[0].body == "Content"
+    assert node1.messages[0] == "Content"
+    assert node2.messages[0] == "Content"
 
 
 def test_transitive_and_split_message():
@@ -64,9 +64,9 @@ def test_transitive_and_split_message():
     node0.invoke_broadcast("Content")
 
     assert network.total_messages == 3
-    assert node1.messages[0].body == "Content"
-    assert node2.messages[0].body == "Content"
-    assert node3.messages[0].body == "Content"
+    assert node1.messages[0] == "Content"
+    assert node2.messages[0] == "Content"
+    assert node3.messages[0] == "Content"
 
 
 def test_split_and_join_message():
@@ -83,9 +83,9 @@ def test_split_and_join_message():
     node0.invoke_broadcast("Content")
 
     assert network.total_messages == 3
-    assert node1.messages[0].body == "Content"
-    assert node2.messages[0].body == "Content"
-    assert node3.messages[0].body == "Content"
+    assert node1.messages[0] == "Content"
+    assert node2.messages[0] == "Content"
+    assert node3.messages[0] == "Content"
 
 
 def test_minimal_number_messages():
@@ -95,4 +95,4 @@ def test_minimal_number_messages():
     assert network.total_messages == network_size - 1
     for node in network.nodes:
         if node.id > 0:
-            assert len(node.messages) == 1 and node.messages[0].body == "Content"
+            assert len(node.messages) == 1 and node.messages[0] == "Content"

@@ -45,12 +45,13 @@ class Node:
             print(f"Warning: {str(self)} tried sending a message to a node not its neighbor: {next_hop}") #TODO implement logging
 
     def receive(self, message):
-        self.messages.append(message)
+        self.messages.append(message.body)
         path_tree = message.header["path_tree"]
         for child_tree in path_tree.children:
             new_message = message.clone()
             new_message.header["path_tree"] = child_tree
             self.send_message(new_message)
+        message = None
 
     def invoke_broadcast(self, content):
         if self.minimal_spanning_tree is None:
