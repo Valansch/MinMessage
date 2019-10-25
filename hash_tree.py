@@ -12,8 +12,14 @@ class HashTree():
     def add(self, data):
         child = HashTree(data, self)
         self.children.append(child)
-        self.entries.add(child)
+        self.add_descendant(child)
         return child
+
+    def add_descendant(self, tree):
+        self.entries.add(tree)
+        if self.parent is not None:
+            self.parent.add_descendant(tree)
+
 
     def __eq__(self, other):
         return self.data.id == other.data.id
@@ -21,4 +27,6 @@ class HashTree():
     def __hash__(self):
         return self.data.id
 
+    def __len__(self):
+        return len(self.entries)
 

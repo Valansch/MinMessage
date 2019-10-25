@@ -2,17 +2,16 @@ from hash_tree import HashTree
 from node import Node
 def build_minimal_spanning_tree(network, root: Node):
     tree = HashTree(root)
-    nodes = []
-    current_node = root
+    subtrees = []
+    current_subtree = tree
     while True:
-        for neighbor in current_node.neighbors:
+        for neighbor in current_subtree.data.neighbors:
             if not tree.contains(neighbor): # O(1)
-                nodes.append(neighbor)
-                tree.add(neighbor) # O(log(1))
+                new_subtree = current_subtree.add(neighbor) # 0(log(n))
+                subtrees.append(new_subtree) # O(1)
         try:
-            current_node = nodes.pop()
+            current_subtree = subtrees.pop()
         except IndexError:
             break
     return tree
 
-from network import Network
