@@ -13,24 +13,12 @@ class Node:
     def __repr__(self):
         return str(self.id)
 
-    def print(self):
-        print(f"Node{self.id}: ", end="")
-        for node in self.neighbors:
-            print(f"{str(node)}, ", end="")
-        print()
-
     def __init__(self, id, network_interface):
         self.neighbors = []
         self.id = id
         self.network_interface = network_interface
         self.minimal_spanning_tree = None
         self.messages = []
-
-    def __lt__(self, other):
-        return self.id < other.id
-
-    def __gt__(self, other):
-        return self.id > other.id
 
     def __hash__(self):
         # ID is unique for nodes created by network.create_node
