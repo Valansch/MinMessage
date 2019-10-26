@@ -8,7 +8,7 @@ A tool to simulate a network for sending broadcast with the minimal possible num
 Simply clone the repository.
 
 ```
-git clone https://github.com/Valansch/imageloader.git
+git clone https://github.com/Valansch/MinMessage.git
 ```
 
 ### Requirements
