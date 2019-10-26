@@ -6,7 +6,7 @@ class HashTree:
         self.entries = set()
         self.entries.add(self)
 
-    def contains(self, data):
+    def __contains__(self, data):
         # avg O(1) because entries is collision free for type Node
         return HashTree(data) in self.entries
 
@@ -26,7 +26,10 @@ class HashTree:
         return self.data.id == other.data.id
 
     def __hash__(self):
-        return self.data.id
+        if type(self.data).__name__ == "Node":
+            return self.data.id
+        else:
+            return hash(self.data)
 
     def __len__(self):
         return len(self.entries)
