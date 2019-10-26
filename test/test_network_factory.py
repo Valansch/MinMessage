@@ -30,6 +30,7 @@ def test_network_connected():
 
     assert network_connected(network)
 
+
 def test_number_edges_consistent():
     network = network_factory.create_random_network(1000, 5, random_seed)
 

@@ -40,7 +40,7 @@ class Node:
     def send_message(self, message):
         """
             Sends a message if the next hop in the messages path is a neighbor
-            
+
             Parameters
             ----------
                 message: Message
@@ -51,12 +51,14 @@ class Node:
         if self.has_neighbor(next_hop):
             self.network_interface.send(self, next_hop, message)
         else:
-            print(f"Warning: {str(self)} tried sending a message to a node not its neighbor: {next_hop}")
+            print(
+                f"Warning: {str(self)} tried sending a message to a node not its neighbor: {next_hop}"
+            )
 
     def receive(self, message):
         """
             Callback for when a message is received by this node
-            
+
             Parameters
             ----------
                 message: Message
@@ -74,17 +76,19 @@ class Node:
         """
             Invokes a broadcast to all nodes reachable
             If this is the first broadcast send by this node,
-            then a minimal spanning tree, containing all nodes reachable, 
+            then a minimal spanning tree, containing all nodes reachable,
             will be constructed first. The complexity for this initial call
-            is therefore in O(n*log(n)). All calls after that are in O(n) 
-            
+            is therefore in O(n*log(n)). All calls after that are in O(n)
+
             Parameters
             ----------
                 content: Any
                     The content of the message to send
         """
         if self.minimal_spanning_tree is None:
+            print("Creating MST...")
             self.minimal_spanning_tree = extract_minimal_spanning_tree(self)
+            print("MST created")
         message = Message(self.minimal_spanning_tree, content)
         self.receive(message) # Call receive to drop "message zero" into the root nodes in port
 

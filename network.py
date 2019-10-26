@@ -6,6 +6,7 @@ class Network:
     """
         An abstraction of a simulated network containing all nodes and edges.
     """
+
     def __init__(self):
         """
             Constructs an empty network
@@ -29,7 +30,7 @@ class Network:
                 nodeA: Node
                 nodeB: Node
         """
-        if (nodeA not in nodeB.neighbors):
+        if nodeA not in nodeB.neighbors:
             self.edges.append((nodeA, nodeB))
             self.edges.append((nodeB, nodeA))
             nodeA.advertise(nodeB)
@@ -38,7 +39,7 @@ class Network:
     def create_new_node(self):
         """
             Creates a unique disjointed node and adds to the network
-            
+
             Returns
             -------
                 node: Node

@@ -3,7 +3,7 @@ from hash_tree import HashTree
 
 def extract_minimal_spanning_tree(root):
     """
-        Constructs a minimal spanning tree by traversing 
+        Constructs a minimal spanning tree by traversing
         a network starting from a given root node
 
         Parameters

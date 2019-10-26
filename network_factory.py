@@ -9,7 +9,7 @@ from network import Network
 def create_random_network(network_size, edge_factor, seed=None):
     """
         Creates a random jointed network
-        
+
         Parameters
         ---------
             network_size: int
@@ -18,7 +18,7 @@ def create_random_network(network_size, edge_factor, seed=None):
             edge_factor: int
                 Number of edges in relation to network size
                 Also: Average number of edges per node
-            
+
             seed: int (optional)
                 The seed for the random number generater
 
@@ -33,7 +33,7 @@ def create_random_network(network_size, edge_factor, seed=None):
         random.seed(seed)
     network = Network()
     for _ in range(network_size):
-        network.create_new_node() # Create all nodes
+        network.create_new_node()  # Create all nodes
 
     # Connect random nodes
     for _ in range(1, edge_factor - 1):
