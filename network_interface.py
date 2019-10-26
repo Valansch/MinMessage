@@ -1,4 +1,7 @@
 class NetworkInterface:
+    """
+        Simulated network interface of a node
+    """
     def __init__(self, network):
         self.network = network
 

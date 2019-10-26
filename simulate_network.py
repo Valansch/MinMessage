@@ -5,6 +5,7 @@ import network_factory
 
 def run_network_simulation(network_size, avg_edges_per_node):
 
+    print("========================================================================================")
     start = time.time()
 
     print(f"Creating random network of size {str(network_size)}...")

@@ -3,7 +3,17 @@ from node import Node
 
 
 class Network:
+    """
+        An abstraction of a simulated network containing all nodes and edges.
+    """
     def __init__(self):
+        """
+            Constructs an empty network
+
+            Returns
+            -------
+                network: Network
+        """
         self.nodes = []
         self.edges = []
         self.total_messages = 0
@@ -11,12 +21,28 @@ class Network:
         self.global_message_buffer = []
 
     def connect(self, nodeA, nodeB):
+        """
+            Connects two nodes and advertises the nodes to each other
+
+            Parameters
+            ----------
+                nodeA: Node
+                nodeB: Node
+        """
         self.edges.append((nodeA, nodeB))
         self.edges.append((nodeB, nodeA))
         nodeA.advertise(nodeB)
         nodeB.advertise(nodeA)
 
     def create_new_node(self):
+        """
+            Creates a unique disjointed node and adds to the network
+            
+            Returns
+            -------
+                node: Node
+                    The newly created node
+        """
         node = Node(len(self.nodes), NetworkInterface(self))
         self.nodes.append(node)
         return node

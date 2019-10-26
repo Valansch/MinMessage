@@ -8,11 +8,13 @@ def extract_minimal_spanning_tree(root):
 
         Parameters
         ----------
-        root: Node
+            root: Node
 
         Returns
         ---------
-        HashTree: The minimal spanning tree
+            minimal_spanning_tree: HashTree
+                The tree containing all nodes reachable by root containing
+                n - 1 edges with n being the number of nodes reachable by root.
     """
     tree = HashTree(root)
     subtrees = []
