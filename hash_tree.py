@@ -35,6 +35,12 @@ class HashTree:
         self.entries.add(self)
 
     def __contains__(self, data):
+        if self.parent is not None:
+            raise NotImplementedError(
+                "HashTree:__contains__ is only implemented for root trees " +
+                f"tree {str(self)} with value {str(self.data)} with parent: " +
+                f"{str(self.parent)} and value {str(self.parent.data)}"
+            )   
         # avg O(1) because entries is collision free for type Node
         return HashTree(data) in self.entries
 
