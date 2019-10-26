@@ -68,7 +68,7 @@ class HashTree:
             parent = parent.parent
 
     def __eq__(self, other):
-        return self.data.id == other.data.id
+        return self.data == other.data
 
     def __hash__(self):
         if type(self.data).__name__ == "Node":
