@@ -8,7 +8,7 @@ class HashTree:
 
 
 
-    def __init__(self, data, parent=None):
+    def __init__(self, data, parent=None, entries = None):
         """
             Constructs a new HashTree
 
@@ -28,7 +28,10 @@ class HashTree:
         self.parent = parent
         self.children = []
         self.data = data
-        self.entries = set()
+        if entries is None:
+            self.entries = set()
+        else:
+            self.entries = entries
         self.entries.add(self)
 
     def __contains__(self, data):
@@ -49,23 +52,10 @@ class HashTree:
             child: HashTree
                 The child that was added to self
         """
-        child = HashTree(data, self)
+        child = HashTree(data, self, self.entries)
         self.children.append(child)
-        self.add_descendant(child)
+        self.entries.add(child)
         return child
-
-    def add_descendant(self, tree):
-        """
-            Add new subtree to all descendants hashtable
-
-            Parameters
-            ---------
-            tree: HashTree
-        """
-        parent = self
-        while parent is not None:
-            parent.entries.add(tree)
-            parent = parent.parent
 
     def __eq__(self, other):
         return self.data == other.data
