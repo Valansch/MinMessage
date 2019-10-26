@@ -62,5 +62,4 @@ class Node:
 
         network = self.network_interface.network
         # Simulate network activity
-        while len(network.global_message_buffer) > 0:
-            network.network_tick()
+        network.start()

@@ -24,14 +24,18 @@ class Network:
     def get_size(self):
         return len(self.nodes)
 
-    def print(self):
-        for node in self.nodes:
-            node.print()
+    def start(self):
+        """
+            Simulates network activity until no more messages are to be send
+        """
 
-    def network_tick(self):
-        try:
-            target, message = self.global_message_buffer.pop()
+        target = None
+        message = None
+        while len(self.global_message_buffer) > 0:
+            try:
+                target, message = self.global_message_buffer.pop()
+            except IndexError:
+                break
+
             self.total_messages += 1
             target.receive(message)
-        except IndexError:
-            return
