@@ -21,7 +21,7 @@ git clone https://github.com/Valansch/imageloader.git
 Use python3 to call simulate_network.py directly:
 
 ```
-python3 simulation
+python3 simulate_network.py
 ```
 
 ## Tests
