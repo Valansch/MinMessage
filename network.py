@@ -29,10 +29,11 @@ class Network:
                 nodeA: Node
                 nodeB: Node
         """
-        self.edges.append((nodeA, nodeB))
-        self.edges.append((nodeB, nodeA))
-        nodeA.advertise(nodeB)
-        nodeB.advertise(nodeA)
+        if (nodeA not in nodeB.neighbors):
+            self.edges.append((nodeA, nodeB))
+            self.edges.append((nodeB, nodeA))
+            nodeA.advertise(nodeB)
+            nodeB.advertise(nodeA)
 
     def create_new_node(self):
         """
